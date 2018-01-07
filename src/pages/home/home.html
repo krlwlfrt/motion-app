@@ -1,0 +1,96 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Übersicht</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-card *ngIf="mode">
+    <ion-card-header>
+      <span style="float: right">
+        <ion-icon name="eye" *ngIf="mode === 'on'" color="secondary"></ion-icon>
+        <ion-icon name="refresh" *ngIf="mode === 'auto'"></ion-icon>
+        <ion-icon name="eye-off" *ngIf="mode === 'off'" color="danger"></ion-icon>
+      </span>
+
+      Modus
+    </ion-card-header>
+    <ion-card-content>
+      <ion-segment [(ngModel)]="mode" (ngModelChange)="changedMode($event)">
+        <ion-segment-button value="on">
+          An
+        </ion-segment-button>
+        <ion-segment-button value="auto">
+          Auto
+        </ion-segment-button>
+        <ion-segment-button value="off">
+          Aus
+        </ion-segment-button>
+      </ion-segment>
+
+      <div *ngIf="settings && mode === 'auto'" style="margin-top: 10px">
+        Im <strong>Auto</strong>-Modus wird die Kamera nach
+        <strong>{{settings._scanTimeout * settings._missesConsideredOffline / 1000}}</strong>
+        Sekunden eingeschaltet, wenn keine vertrauenswürdigen Geräte im Netzwerk sind.
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-icon name="videocam" style="float: right;"></ion-icon>
+
+      Kamera
+    </ion-card-header>
+
+    <img src="{{snap}}" alt="Live" *ngIf="status.status"/>
+    <ion-card-content *ngIf="!status.status">
+      Die Kamera ist momentan nicht aktiv.
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <span style="float: right">
+        <ion-icon name="laptop"></ion-icon>
+        <ion-icon name="phone-portrait"></ion-icon>
+      </span>
+
+      Netzwerkgeräte
+    </ion-card-header>
+    <ion-card-content>{{devices.data.length}} Gerät(e) im Netzwerk</ion-card-content>
+    <ion-list>
+      <ion-item *ngFor="let device of devices.data">
+        <ion-row>
+          <ion-col *ngIf="!device.name">
+            {{device.mac}}
+            <div><strong>IP</strong>: {{device.ip}}</div>
+          </ion-col>
+          <ion-col *ngIf="device.name">
+            <strong>{{device.name}}</strong>
+            <div *ngIf="device.mac"><strong>MAC</strong>: {{device.mac}}</div>
+            <div *ngIf="device.ip"><strong>IP</strong>: {{device.ip}}</div>
+          </ion-col>
+
+          <ion-col text-center>
+            <ion-icon name="wifi" color="secondary" *ngIf="device.ip"></ion-icon>
+            <ion-icon name="wifi" color="danger" *ngIf="!device.ip"></ion-icon>
+          </ion-col>
+
+          <ion-col text-center>
+            <button (click)="trustDevice(device.mac)" *ngIf="!device.trusted">
+              <ion-icon name="add" *ngIf="!device.trusted"></ion-icon>
+            </button>
+
+            <button (click)="untrustDevice(device.mac)" *ngIf="device.trusted">
+              <ion-icon name="remove" *ngIf="device.trusted"></ion-icon>
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+</ion-content>

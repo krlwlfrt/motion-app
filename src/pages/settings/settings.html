@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Einstellungen</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <div *ngFor="let setting of settings">
+      <ion-item>
+        <ion-label floating>{{setting.title}}</ion-label>
+
+        <ion-input *ngIf="!setting.values"
+                   type="text"
+                   [ngModel]="setting.value"
+                   (ngModelChange)="changed($event, setting)">
+        </ion-input>
+
+        <ion-select *ngIf="setting.values"
+                    [ngModel]="setting.value"
+                    (ngModelChange)="changed($event, setting)">
+          <ion-option value="{{value}}" *ngFor="let value of setting.values">{{value}}</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item *ngIf="setting.description" text-wrap style="margin-bottom: 20px;" no-lines>
+        <em>{{setting.description}}</em>
+      </ion-item>
+    </div>
+  </ion-list>
+</ion-content>
