@@ -33,7 +33,7 @@
 
       <div *ngIf="settings && mode === 'auto'" style="margin-top: 10px">
         Im <strong>Auto</strong>-Modus wird die Kamera nach
-        <strong>{{settings._scanTimeout * settings._missesConsideredOffline / 1000}}</strong>
+        <strong>{{settings._scanTimeout * settings._missesConsideredOffline}}</strong>
         Sekunden eingeschaltet, wenn keine vertrauenswürdigen Geräte im Netzwerk sind.
       </div>
     </ion-card-content>

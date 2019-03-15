@@ -1,7 +1,7 @@
 import {HttpClient} from '@angular/common/http';
 import {Component} from '@angular/core';
 import {AlertController} from 'ionic-angular';
-import {MotionAPIActiveDeviceList, MotionAPIResponse} from 'motion-server';
+import {MotionAPIResponse, NetworkDevice} from 'motion-server';
 import {Observable} from 'rxjs/Rx';
 
 @Component({
@@ -10,7 +10,7 @@ import {Observable} from 'rxjs/Rx';
 })
 export class HomePage {
   private status: MotionAPIResponse<undefined> = {status: false};
-  private devices: MotionAPIResponse<MotionAPIActiveDeviceList> = {status: false, data: []};
+  private devices: MotionAPIResponse<NetworkDevice[]> = {status: false, data: []};
   private mode: string;
   private settings: any = {};
   private snap = '/images/snap.jpg?time=' + (new Date()).getTime();
@@ -40,7 +40,7 @@ export class HomePage {
   }
 
   getDevices() {
-    this.httpClient.get('/api/devices').toPromise().then((response: MotionAPIResponse<MotionAPIActiveDeviceList>) => {
+    this.httpClient.get('/api/devices').toPromise().then((response: MotionAPIResponse<NetworkDevice[]>) => {
       this.devices = response;
     });
   }

@@ -1,0 +1,14 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Ereignis</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+    <img ion-item *ngFor="let image of images.data" [src]="'/images/' + image" width="100%"/>
+  </ion-list>
+</ion-content>

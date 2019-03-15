@@ -2,7 +2,7 @@ import {Component, ViewChild} from '@angular/core';
 import {SplashScreen} from '@ionic-native/splash-screen';
 import {StatusBar} from '@ionic-native/status-bar';
 import {Nav, Platform} from 'ionic-angular';
-
+import {EventsPage} from "../pages/events/events";
 import {HomePage} from '../pages/home/home';
 import {SettingsPage} from '../pages/settings/settings';
 
@@ -22,6 +22,7 @@ export class MyApp {
     // used for an example of ngFor and navigation
     this.pages = [
       {title: 'Übersicht', component: HomePage},
+      {title: 'Ereignisse', component: EventsPage},
       {title: 'Einstellungen', component: SettingsPage}
     ];
 
