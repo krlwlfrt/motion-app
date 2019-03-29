@@ -68,11 +68,13 @@
           <ion-col *ngIf="!device.name">
             {{device.mac}}
             <div><strong>IP</strong>: {{device.ip}}</div>
+            <div *ngIf="device.vendor"><strong>Vendor</strong>: {{device.vendor}}</div>
           </ion-col>
           <ion-col *ngIf="device.name">
             <strong>{{device.name}}</strong>
             <div *ngIf="device.mac"><strong>MAC</strong>: {{device.mac}}</div>
             <div *ngIf="device.ip"><strong>IP</strong>: {{device.ip}}</div>
+            <div *ngIf="device.vendor"><strong>Vendor</strong>: {{device.vendor}}</div>
           </ion-col>
 
           <ion-col text-center>
@@ -81,12 +83,12 @@
           </ion-col>
 
           <ion-col text-center>
-            <button (click)="trustDevice(device.mac)" *ngIf="!device.trusted">
-              <ion-icon name="add" *ngIf="!device.trusted"></ion-icon>
+            <button (click)="trustDevice(device.mac)" *ngIf="!device.name">
+              <ion-icon name="add" *ngIf="!device.name"></ion-icon>
             </button>
 
-            <button (click)="untrustDevice(device.mac)" *ngIf="device.trusted">
-              <ion-icon name="remove" *ngIf="device.trusted"></ion-icon>
+            <button (click)="untrustDevice(device.mac)" *ngIf="device.name">
+              <ion-icon name="remove" *ngIf="device.name"></ion-icon>
             </button>
           </ion-col>
         </ion-row>
